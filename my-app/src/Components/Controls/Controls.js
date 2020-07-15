@@ -13,32 +13,29 @@ class Controls extends Component {
     return (
       <div className="col-md-3 text-center px-0">
         <div className="header header--left d-flex align-items-center">
-          <img src="./img/user_2.jpg" className="ml-2 user" alt="user" />
+          <img src="./img/user_1.jpg" className="ml-2 user" alt="user" />
           <h3 className="text-white d-inline font-weight-light ml-2">
-            Nguyễn Đình Anh Quốc
+            Lê Quang Song
           </h3>
         </div>
 
-        {/* <AddNewTask clearBeforeAddNewTask={this.props.clearBeforeAddNewTask} /> */}
-        <AddNewTask />
+        <AddNewTask clearBeforeAddNewTask={this.props.clearBeforeAddNewTask} />
 
-        {/* <InitializeTask generateData={this.props.generateData} /> */}
+        <InitializeTask generateData={this.props.generateData} />
 
         {/* Filter */}
-        {/* <div className="px-3">
+        <div className="px-3">
           <FilterProgress
             changeFilterProgress={this.props.changeFilterProgress}
           />
 
           <FilterLabel changeFilterLabel={this.props.changeFilterLabel} />
 
-          <FilterPriority
-            changeFilterPriority={this.props.changeFilterPriority}
-          /> */}
+          <FilterPriority changeFilterPriority={this.props.changeFilterPriority} />
 
-        {/* Sort */}
-        {/* <Sort changeSortType={this.props.changeSortType} /> */}
-        {/* </div> */}
+          {/* Sort */}
+          <Sort changeSortType={this.props.changeSortType} />
+        </div>
       </div>
     );
   }

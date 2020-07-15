@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class AddNewTask extends Component {
   handleAddNewTask = () => {
-    // this.props.clearBeforeAddNewTask();
+    this.props.clearBeforeAddNewTask();
   }
   render() {
     return (

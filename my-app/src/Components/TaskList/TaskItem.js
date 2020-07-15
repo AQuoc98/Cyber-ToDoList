@@ -1,7 +1,28 @@
 import React, { Component } from "react";
 
 class TaskItem extends Component {
-  getLabelColor = (label) => {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedProgress: "",
+    };
+  }
+
+  onChange = event => {
+    this.setState(
+      {
+        [event.target.name]: event.target.value
+      },
+      () => {
+        this.props.changeProgress(
+          this.props.item.id,
+          this.state.selectedProgress
+        );
+      }
+    );
+  };
+
+  getLabelColor = label => {
     let labelColor;
     switch (label) {
       case "Frontend":
@@ -23,9 +44,14 @@ class TaskItem extends Component {
     return labelColor;
   };
 
+  handleEditing = () => {
+    this.props.editTask(this.props.item);
+  };
+
   render() {
     // const index = this.props.index;
     // const item = this.props.item;
+
     // destructuring trong ES6
     let { index, item } = this.props;
 

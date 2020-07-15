@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Checkbox, CheckboxGroup } from "react-checkbox-group";
-import randomid from "randomid";
+
 class Modal extends Component {
   constructor(props) {
     super(props);
@@ -10,33 +10,59 @@ class Modal extends Component {
       labelArr: [],
       priority: "",
       memberIDArr: [],
-      description: "",
+      description: ""
     };
-    
   }
 
-  onChange = (event) => {
+  onChange = event => {
     this.setState({
-      [event.target.name]: event.target.value,
-      id: randomid(5),
-      
+      [event.target.name]: event.target.value
     });
+    console.log(event.target.value);
   };
 
-  onSubmit = (event) => {
+  onSubmit = event => {
     event.preventDefault(); // Chống reload trang
     this.props.addNewTask(this.state);
+    this.props.onEditTask(this.state);
   };
 
-  memberChanged = (newMember) => {
+  memberChanged = newMember => {
     this.setState({
-      memberIDArr: newMember,
+      memberIDArr: newMember
     });
   };
 
-  labelChanged = (newLabel) => {
+  labelChanged = newLabel => {
     this.setState({
-      labelArr: newLabel,
+      labelArr: newLabel
+    });
+  };
+
+  componentWillReceiveProps = nextProps => {
+    if (nextProps && nextProps.isAddNewTask) {
+      this.clearForm();
+    }
+    if (nextProps && nextProps.taskEditing && !nextProps.isAddNewTask) {
+      this.setState({
+        id: nextProps.taskEditing.id,
+        name: nextProps.taskEditing.name,
+        labelArr: nextProps.taskEditing.labelArr,
+        description: nextProps.taskEditing.description,
+        priority: nextProps.taskEditing.priority,
+        memberIDArr: nextProps.taskEditing.memberIDArr
+      });
+    }
+  };
+
+  clearForm = () => {
+    this.setState({
+      id: "",
+      name: "",
+      labelArr: [],
+      priority: "",
+      memberIDArr: [],
+      description: ""
     });
   };
 
@@ -47,7 +73,9 @@ class Modal extends Component {
           <div className="modal-content">
             {/* Modal Header */}
             <div className="modal-header">
-              <h4 className="modal-title">Thêm công việc</h4>
+              <h4 className="modal-title">
+                {this.props.isAddNewTask ? "Thêm Task" : "Sửa Task"}
+              </h4>
               <button type="button" className="close" data-dismiss="modal">
                 ×
               </button>
@@ -100,16 +128,16 @@ class Modal extends Component {
                   onChange={this.memberChanged}
                 >
                   <label>
-                    <Checkbox value="user_2" /> Anh Quoc
+                    <Checkbox value="user_2" /> Phó Nghĩa Văn
                   </label>
                   <label>
-                    <Checkbox value="user_3" /> Quoc Phong
+                    <Checkbox value="user_3" /> Nguyễn Tiến Minh Tuấn
                   </label>
                   <label>
-                    <Checkbox value="user_4" /> Man Pham
+                    <Checkbox value="user_4" /> Đặng Trung Hiếu
                   </label>
                   <label>
-                    <Checkbox value="user_5" /> Thao Duong
+                    <Checkbox value="user_5" /> Trương Tấn Khải
                   </label>
                 </CheckboxGroup>
 
@@ -142,8 +170,7 @@ class Modal extends Component {
                   className="btn btn-success"
                   // data-dismiss="modal"
                 >
-                  Thêm công việc
-                  {this.props.addNewTask}
+                  {this.props.isAddNewTask ? "Thêm Task" : "Sửa Task"}
                 </button>
                 <button
                   type="button"
