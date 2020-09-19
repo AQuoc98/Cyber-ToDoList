@@ -45,6 +45,7 @@ class App extends Component {
     let tasksJSON = JSON.parse(localStorage.getItem("tasks"));
     this.setState({
       tasks: tasksJSON
+      // tasks: [] dùng để fix lỗi map null khi xoá local storage
     });
   };
 
